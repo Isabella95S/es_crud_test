@@ -12,7 +12,8 @@ public class StudentService {
     private StudentRepository studentRepository;
 
     public void setWorkingStatus(Student student, boolean isWorking) {
-    student.setWorking(isWorking);
-    studentRepository.save(student);
+        if (student == null) return;
+        student.setWorking(isWorking);
+        studentRepository.save(student);
     }
 }
