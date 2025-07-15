@@ -1,0 +1,10 @@
+environment: test
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: root
+    password: ciaobella
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
