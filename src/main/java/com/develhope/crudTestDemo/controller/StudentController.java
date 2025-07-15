@@ -3,6 +3,7 @@ package com.develhope.crudTestDemo.controller;
 import com.develhope.crudTestDemo.model.Student;
 import com.develhope.crudTestDemo.repository.StudentRepository;
 import com.develhope.crudTestDemo.service.StudentService;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,8 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
     @PostMapping("/")
-    public void create(@RequestBody Student student) {
-    studentRepo.save(student);
+    public Student create(@RequestBody Student student) {
+    return studentRepo.save(student);
     }
     @GetMapping("/{id}")
     public Student getStudent(@PathVariable Integer id) {
@@ -35,7 +36,7 @@ public class StudentController {
     return studentRepo.findAll();
     }
     @PutMapping("/{id}")
-    public void update(@PathVariable Integer id , @RequestBody Student stud) {
+    public void update(@PathVariable Integer id , @NotNull @RequestBody Student stud) {
          stud.setId(id);
          studentRepo.save(stud);
     }
