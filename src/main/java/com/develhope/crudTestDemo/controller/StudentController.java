@@ -34,12 +34,17 @@ public class StudentController {
     public List<Student> getList() {
     return studentRepo.findAll();
     }
-    @PutMapping("/")
-    public void update() {
-
+    @PutMapping("/{id}")
+    public void update(@PathVariable Integer id , @RequestBody Student stud) {
+         stud.setId(id);
+         studentRepo.save(stud);
     }
-    @DeleteMapping()
-    public void delete() {
-
+    @PutMapping("/{id}/working")
+    public void setStudentWorking(@PathVariable Integer id, @RequestParam boolean working) {
+    studentService.setWorkingStatus(id,working);
+    }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        studentRepo.deleteById(id);
     }
 }
