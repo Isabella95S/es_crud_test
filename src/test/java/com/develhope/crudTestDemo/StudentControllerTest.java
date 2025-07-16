@@ -5,6 +5,8 @@ import com.develhope.crudTestDemo.model.Student;
 import com.develhope.crudTestDemo.repository.StudentRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -19,6 +21,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.List;
 import java.util.Optional;
 
 @AutoConfigureMockMvc
@@ -80,6 +83,17 @@ class StudentControllerTest {
 //		assertThat(student1.get().isWorking()).isFalse();
 		Boolean valore = student1.get().isWorking();
 		assertThat(valore).isFalse();
+	}
+
+	@Test
+	void readListStudents() throws Exception{
+		MvcResult result = this.mockMvc.perform(get("/student/students"))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andReturn();
+
+		List<Student> studentsFromResponse = objectMapper.readValue(result.getResponse().getContentAsString(), List.class);
+		assertThat(studentsFromResponse.size()).isNotZero();
 	}
 
 
