@@ -103,6 +103,7 @@ class StudentControllerTest {
 
 	@Test
 	void readListStudents() throws Exception{
+		createAStudent();
 		MvcResult result = this.mockMvc.perform(get("/student/students"))
 				.andDo(print())
 				.andExpect(status().isOk())
