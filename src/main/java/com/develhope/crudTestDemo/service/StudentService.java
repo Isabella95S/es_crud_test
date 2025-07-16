@@ -15,7 +15,7 @@ public class StudentService {
 
     public void setWorkingStatus(Integer id, boolean isWorking) {
         Optional<Student> stud = studentRepository.findById(id);
-        if (stud.isPresent()) return;
+        if (!stud.isPresent()) return;
         stud.get().setWorking(isWorking);
         studentRepository.save(stud.get());
     }
