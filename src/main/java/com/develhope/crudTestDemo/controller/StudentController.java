@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/student")
 public class StudentController {
     @Autowired
     private StudentRepository studentRepo;
     @Autowired
     private StudentService studentService;
-    @PostMapping("/")
+    @PostMapping("")
     public Student create(@RequestBody Student student) {
     return studentRepo.save(student);
     }
