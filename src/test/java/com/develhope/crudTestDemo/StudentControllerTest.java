@@ -43,21 +43,37 @@ class StudentControllerTest {
 		assertThat(studentController).isNotNull();
 	}
 
-	@Test
-	void createAStudent() throws Exception {
-		Student student = new Student();
-		student.setName("Isabella");
-		student.setSurname("De Sanctis");
-		student.setWorking(true);
+	private MvcResult createAStudent() throws Exception{
+		Student stud1 = new Student();
+		stud1.setWorking(true);
+		stud1.setName("Isabella");
+		stud1.setSurname("De Sanctis");
 
-		String studentJSON = objectMapper.writeValueAsString(student);
+		String studentJSON = objectMapper.writeValueAsString(stud1);
 
-		MvcResult result = this.mockMvc.perform(post("/student")
+		return this.mockMvc.perform((post("/student")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content((studentJSON)))
+				.content(studentJSON)))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andReturn();
+
+	}
+	@Test
+	void createAStudentTest() throws Exception {
+//		Student student = new Student();
+//		student.setName("Isabella");
+//		student.setSurname("De Sanctis");
+//		student.setWorking(true);
+		MvcResult result = createAStudent();
+//		String studentJSON = objectMapper.writeValueAsString(student);
+
+//		MvcResult result = this.mockMvc.perform(post("/student")
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.content((studentJSON)))
+//				.andDo(print())
+//				.andExpect(status().isOk())
+//				.andReturn();
 
 		Student studFromResponse = objectMapper.readValue(result.getResponse().getContentAsString(), Student.class);
 		assertThat(studFromResponse.getId()).isNotNull();
